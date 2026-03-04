@@ -474,13 +474,6 @@ func preProcessMessages(input []*schema.Message) ([]*schema.Message, []*schema.M
 	userMsgIdx := -1
 	for i, msg := range input {
 		if msg.Role != schema.System {
-			if msg.Role != schema.User {
-				// claude requires first message to be user msg
-				// as specified in https://docs.anthropic.com/en/api/messages:
-				// 'You can specify a single user-role message,
-				// or you can include multiple user and assistant messages.'
-				return nil, nil, errors.New("first non-system message should be user message")
-			}
 			userMsgIdx = i
 			break
 		}
